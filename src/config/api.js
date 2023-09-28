@@ -1,9 +1,4 @@
 const apiConfig = () => {
-  const apiHost = () => {
-    if(import.meta.env.DEV) return 'http://localhost:3001'
-    
-    return import.meta.env.VITE_API_URL
-  }
   return {
     apiHost: import.meta.env.VITE_API_URL,
     endpoints: {
@@ -11,5 +6,7 @@ const apiConfig = () => {
     }
   }
 }
-
-export default apiConfig()
+const config = apiConfig()
+const apiHost = config.apiHost
+const endpoints = config.endpoints
+export {apiHost, endpoints}

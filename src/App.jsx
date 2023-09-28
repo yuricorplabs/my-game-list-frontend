@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import apiConfig from './config/api'
+import ApiClient from './clients/ApiClient'
 import { Layout, Space, Button, Form, Input } from 'antd';
 const { Content } = Layout;
 
@@ -11,6 +11,8 @@ function App() {
   };
 
   const onFinish = (values) => {
+    const params = { endpointPath: 'login',  data: {...values} }
+    console.log(ApiClient({...params}))
     console.log('Success:', values);
   };
   const onFinishFailed = (errorInfo) => {
