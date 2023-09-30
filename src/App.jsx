@@ -1,83 +1,38 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import Cookies from 'js-cookies'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUser } from './redux/reducers/SessionReducer'
+
 import './App.css'
-import ApiClient from './clients/ApiClient'
-import { Layout, Space, Button, Form, Input } from 'antd';
+import Login from './components/Login'
+import GameList from './components/game/GameList'
+
+import { Layout, Space } from 'antd';
 const { Content } = Layout;
 
 function App() {
+  const dispatch = useDispatch()
+  const currentUser = useSelector((state) => state.session.currentUser)
+  useEffect(() => {
+    const userData = Cookies.getItem('userData')
+    
+    dispatch(setUser(userData))
+  }, [])
+
   const contentStyle = {
     textAlign: 'center',
     padding: '20%'
-  };
-
-  const onFinish = (values) => {
-    const params = { endpointPath: 'login',  data: {...values} }
-    console.log(ApiClient({...params}))
-    console.log('Success:', values);
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
   };
 
   return (
     <Space direction="vertical" style={{ width: '100%' }} size={[0, 48]}>
       <Layout>
         <Content style={contentStyle}>
-          <Form
-            name="basic"
-            labelCol={{
-              span: 8,
-            }}
-            wrapperCol={{
-              span: 16,
-            }}
-            style={{
-              maxWidth: 600,
-            }}
-            initialValues={{
-              remember: true,
-            }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-          >
-          <Form.Item
-            label="email"
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your email!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your password!',
-              },
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
-
-          <Form.Item
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-            <Button type="primary" htmlType="submit">
-              Login
-            </Button>
-          </Form.Item>
-          </Form>
+          {currentUser ? 
+            <GameList />
+          :
+            <Login />
+          }
         </Content>
       </Layout>
     </Space>
