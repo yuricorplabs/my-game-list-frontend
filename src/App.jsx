@@ -25,17 +25,14 @@ function App() {
   };
 
   return (
-    <Space direction="vertical" style={{ width: '100%' }} size={[0, 48]}>
-      <Layout>
-        <Content style={contentStyle}>
-          {currentUser ? 
-            <GameList />
-          :
-            <Login />
-          }
-        </Content>
-      </Layout>
-    </Space>
+    <>
+      {currentUser ? 
+        <GameList />
+      :
+        <Login />
+      }
+    </>
+    
   )
 }
 
