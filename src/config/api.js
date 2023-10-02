@@ -1,16 +1,5 @@
-const apiConfig = () => {
-  const apiHost = () => {
-    if(__APP_ENV__ == 'development') return 'http://localhost:3001'
-    
-    return ''
-  }
-
-  return {
-    apiHost: apiHost(),
-    endpoints: {
-      login: {url: '/login', method: 'post'}
-    }
-  }
+const apiHost = import.meta.env.VITE_API_URL
+const endpoints = {
+  login: { url: '/login', method: 'POST' }
 }
-
-export default apiConfig()
+export { apiHost, endpoints }
