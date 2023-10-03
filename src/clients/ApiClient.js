@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { apiHost, endpoints } from '../config/api'
+import store from '../redux/store'
 
 const ApiClient = ({ endpointPath, data, queryUrl, query }) => {
   const parseEndpoint = () => {
@@ -15,8 +16,19 @@ const ApiClient = ({ endpointPath, data, queryUrl, query }) => {
 
     return { url: `${apiHost}${parsedUrl}`, method: method }
   }
+
+  const authenticationHeader = () => {
+    function selectCurrentUser(state) {
+      return state.session.currentUser
+    }
+    
+    const currentUser = selectCurrentUser(store.getState())
+    if(currentUser === undefined) return {}
+
+    return { authentication: currentUser.authentication }
+  }
   
-  return axios({...parseEndpoint(), data: data, query: query})
+  return axios({...parseEndpoint(), data: data, query: query, headers: authenticationHeader()})
 }
 
 export default ApiClient
