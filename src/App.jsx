@@ -7,9 +7,6 @@ import './App.css'
 import Login from './components/Login'
 import GameList from './components/game/GameList'
 
-import { Layout, Space } from 'antd';
-const { Content } = Layout;
-
 function App() {
   const dispatch = useDispatch()
   const currentUser = useSelector((state) => state.session.currentUser)
@@ -17,12 +14,7 @@ function App() {
     const userData = Cookies.getItem('userData')
     
     dispatch(setUser(userData))
-  }, [])
-
-  const contentStyle = {
-    textAlign: 'center',
-    padding: '20%'
-  };
+  }, [dispatch])
 
   return (
     <>

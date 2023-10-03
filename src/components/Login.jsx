@@ -1,5 +1,5 @@
 import React from 'react'
-import { submitLogin, renderErrors } from '../client_wrappers/LoginWrapper'
+import { submitLogin } from '../client_wrappers/LoginWrapper'
 import { useSelector } from 'react-redux'
 
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
@@ -32,7 +32,6 @@ export default function Login() {
           name="normal_login"
           className="login-form"
           onFinish={(values) => submitLogin(form, values)}
-          onFinishFailed={renderErrors}
           labelCol={{ span: 8 }}
         >
           <Form.Item
