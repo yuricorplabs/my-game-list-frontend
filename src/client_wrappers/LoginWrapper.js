@@ -37,7 +37,5 @@ export const submitLogin = ( form, loginData ) => {
   })
 }
 
-export const renderErrors = (errorInfo) => {}
-
 
 
