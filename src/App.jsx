@@ -11,9 +11,15 @@ function App() {
   const dispatch = useDispatch()
   const currentUser = useSelector((state) => state.session.currentUser)
   useEffect(() => {
-    const userData = Cookies.getItem('userData')
-    
-    dispatch(setUser(userData))
+    const userAuthorization = Cookies.getItem('userData.authorization')
+    if(userAuthorization == null) {
+     dispatch(setUser(null))
+    }
+    else {
+      const userName = Cookies.getItem('userData.name')
+      const userData = { name: userName, authorization: userAuthorization }
+      dispatch(setUser(userData))
+    }
   }, [dispatch])
 
   return (

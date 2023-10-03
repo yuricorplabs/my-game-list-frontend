@@ -17,18 +17,17 @@ const ApiClient = ({ endpointPath, data, queryUrl, query }) => {
     return { url: `${apiHost}${parsedUrl}`, method: method }
   }
 
-  const authenticationHeader = () => {
+  const authorizationHeader = () => {
     function selectCurrentUser(state) {
       return state.session.currentUser
     }
     
     const currentUser = selectCurrentUser(store.getState())
-    if(currentUser === undefined) return {}
-
-    return { authentication: currentUser.authentication }
+    if(currentUser === undefined || currentUser == null) return {}
+    return { authorization: currentUser.authorization }
   }
   
-  return axios({...parseEndpoint(), data: data, query: query, headers: authenticationHeader()})
+  return axios({...parseEndpoint(), data: data, query: query, headers: authorizationHeader()})
 }
 
 export default ApiClient
