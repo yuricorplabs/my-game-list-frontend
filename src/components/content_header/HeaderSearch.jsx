@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { AutoComplete, Input } from 'antd';
 import { searchGames } from '../../client_wrappers/GameWrapper'
+import debounce from 'lodash/debounce'
 
 export default function HeaderSearch() {
   const [options, setOptions] = useState([])
   
-  const getOptions = async (searchText) => {
-    if(searchText.length < 3) return []
-
+  const handleSearch = async (searchText) => {
+    if(searchText == '') return setOptions([])
+    
     const searchResult = await searchGames(searchText)
     const searchOptions = [{label: 'Games', options: searchResult}]
     setOptions(searchOptions)
@@ -15,7 +16,7 @@ export default function HeaderSearch() {
 
   return (
     <AutoComplete
-      onSearch={getOptions}
+      onSearch={debounce(handleSearch, 300)}
       onSelect={globalThis.console.log}
       popupClassName="certain-category-search-dropdown"
       popupMatchSelectWidth={500}

@@ -11,7 +11,7 @@ export default function ContentHeader() {
     <Header className='text-white px-5'>
       <Row>
         <Col span={8}><div>My Game List</div></Col>
-        <Col span={8}>
+        <Col className='grid justify-items-start items-center' span={8}>
           <HeaderSearch />
         </Col>
         <Col span={8} className='grid justify-items-end items-center'>

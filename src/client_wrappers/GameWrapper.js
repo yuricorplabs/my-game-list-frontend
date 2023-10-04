@@ -8,6 +8,8 @@ export const GameIndex = async () => {
 }
 
 export const searchGames = async (searchText) => {
+  if(searchText == '') return []
+  
   const params = { endpointPath: 'games_search', queryUrl: {term: searchText} }
   const response = await ApiClient(params)
   
