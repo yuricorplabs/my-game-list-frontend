@@ -33,4 +33,4 @@ jobs:
       - name: Lint
         run: npm run lint
       - name: audit
-        run: yarn audit
+        run: npm audit --audit-level critical
