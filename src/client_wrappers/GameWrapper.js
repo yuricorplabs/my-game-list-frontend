@@ -6,3 +6,14 @@ export const GameIndex = async () => {
 
   return response.data
 }
+
+export const searchGames = async (searchText) => {
+  if(searchText == '') return []
+  
+  const params = { endpointPath: 'games_search', queryUrl: {term: searchText} }
+  const response = await ApiClient(params)
+  
+  return response.data.map((game) => {
+    return {value: game.id.toString(), label: game.name}
+  })
+}
