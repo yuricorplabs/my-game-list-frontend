@@ -35,5 +35,19 @@ export const submitLogin = ( form, loginData ) => {
   })
 }
 
+export const logout = () => {
+  const destroySession = () => {
+    
+    Cookies.remove('userData')
+    store.dispatch(setUser(null))
+  }
+
+  ApiClient({ endpointPath: 'logout' })
+  .then(destroySession)
+  .catch(() => {
+    store.dispatch(setError('Cannot logout'))
+  })
+}
+
 
 
