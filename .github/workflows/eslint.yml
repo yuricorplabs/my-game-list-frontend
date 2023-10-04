@@ -33,4 +33,6 @@ jobs:
       - name: Lint
         run: npm run lint
       - name: audit
-        run: npm audit --audit-level critical
+        run: |
+          yarn audit 
+          [[ $? -ge 8 ]] && exit 1 || exit 0
