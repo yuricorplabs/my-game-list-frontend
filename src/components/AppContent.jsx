@@ -1,20 +1,24 @@
 import React from 'react'
-import { Space, Layout } from 'antd';
+import { Layout, Row, Col } from 'antd';
 const { Header, Content } = Layout;
 import GameList from './game/GameList'
 
 export default function AppContent() {
 
   return (
-    <Space direction="vertical" align='center' className='flex flex-col items-center justify-center px-6 mx-auto md:h-screen lg:py-0'>
-      <Layout className='p-10'>
-        <Header>
-          test
+    <div className='w-screen bg-slate-50'>
+      <Layout className='bg-inherit' >
+        <Header className='text-white px-5'>
+          <Row>
+            <Col span={8}><div>My Game List</div></Col>
+            <Col span={8}><div>Search</div></Col>
+            <Col span={8} className='grid justify-items-end'><div>User</div></Col>
+          </Row>
         </Header>
         <Content>
           <GameList />
         </Content>
       </Layout>
-    </Space>
+    </div>
   )
 }
