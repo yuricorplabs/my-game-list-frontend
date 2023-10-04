@@ -1,6 +1,6 @@
 import ApiClient from '../clients/ApiClient'
 
-import Cookies from 'js-cookies'
+import Cookies from 'js-cookie'
 import store from '../redux/store'
 import { setUser, setError } from '../redux/reducers/SessionReducer'
 
@@ -14,21 +14,16 @@ export const submitLogin = ( form, loginData ) => {
   const saveSession = (response) => {
     
     const { headers, data } = response
-    const tokenExpires = new Date(parseInt(headers.expires))
+    const tokenExpires = new Date(Date.parse(headers.expires))
     
     const userData = {
-      name: data.data.name,
+      ...data.data,
       authorization: headers.authorization
     }
     
-    Cookies.setItem('userData.name', userData.name, {
+    Cookies.set('userData', JSON.stringify(userData), {
       expires: tokenExpires
     });
-
-    Cookies.setItem('userData.authorization', userData.authorization, {
-      expires: tokenExpires
-    });
-
     store.dispatch(setUser(userData))
   }
 
